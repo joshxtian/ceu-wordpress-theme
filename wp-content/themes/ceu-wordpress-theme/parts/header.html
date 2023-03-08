@@ -1,0 +1,64 @@
+<div class="hdr--holder">
+	<div class="container">
+		<div class="row py-3 hdr-topCon">
+			<div class="col-md-3 col-9 align-self-center">
+				<div class="hdr-logoHolder">
+					<?php echo '<div class="hdr-logo" style="background-image: url('.$attributes['logo']['url'].');">
+					</div>'?>
+				</div>
+				<div class="m-hdr-logoHolder">
+					<div class="m-hdr-logo" style="background-image: url({{ $header['pageItems']['mobile-logo'] }});">
+					</div>
+				</div>
+			</div>
+		  <div class="col-md-6 align-self-center">
+				<div class="hdr-externalLinks__Holder">
+				    <ul class="text-center">
+					  <?php foreach( $attributes['portals'] as $inner ): ?>
+              <li>
+                <a class="text-dark-blue" href="javascript:void(0)">
+					        <?php echo $inner['portal_label']; ?>
+					      </a>
+					      <?php if (strlen( $inner['link-markup'] ) != 0):?>
+					        <ul class="hdr-externalLinks__Menu">
+								    <?php echo $inner['link-markup']; ?>
+							    </ul>
+							  <?php endif; ?>
+              </li>
+            <?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3 align-self-center">
+				<form method="get" action="/search?keywords=keywords">
+				<div class="input-group header-search__Input">
+				  <input type="text" class="form-control" name="keywords" placeholder="Search...">
+				  <div class="input-group-append">
+				  	<button class="btn-white" type="submit"><i class="fas fa-search"></i></button>
+				  </div>
+				</div>
+				</form>
+			</div>
+			<div class="col-md-3 col-3 align-self-center hdr-menuIconCon">
+				<button>
+					<div class="hdr-menuIcon"></div>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="w-100 bg-primary hdr-botCon">
+	      <?php 
+          $custom_walker = new Custom_Walker_Nav_Menu;
+          wp_nav_menu( 
+            array( 
+              'walker' => $custom_walker,
+              'theme_location' => 'custom-menu',
+              'container_class' => 'container',
+              'items_wrap' => '<div class="row hdr-menuHolder">%3$s</div>'
+            ) 
+          ); 
+        ?>
+	</div>
+</div>
+
+
